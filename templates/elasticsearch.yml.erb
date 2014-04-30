@@ -1,0 +1,38 @@
+# Managed by Puppet, DO NOT TOUCH!
+
+node :
+    name : <%= hostname %>
+network :
+    host : <%= fqdn hostname %>
+
+discovery : 
+    zen : 
+        ping : 
+            unicast : 
+                hosts: 
+<% esClusterHosts.each do |esHost| -%>
+                    - <%= esHost %>[<%= esTCPPortRange %>]
+<% end -%>
+            multicast : 
+                enabled : false
+
+transport:
+    tcp:
+        port: <%= esTCPPortRange %>
+http:
+    port: <%= esHTTPPortRange %>
+
+cluster:
+    name: "<%= escluster %>"
+path:
+    logs: <%= esLogPath %>
+    data: <%= esDataPath %>
+    conf: <%= esConfPath %>    
+boostrap:
+    mlockall: <%= esLockAll %>
+
+script:
+    disable_dynamic:  <%= esDisableDynamic %>
+    auto_reload_enabled: <%= esAutoReload %>
+watcher:
+    interval: <%= esInterval %>
