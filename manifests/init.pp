@@ -7,7 +7,7 @@ class elasticsearch (
   $esDataPath,
   $esLogPath,
   $esConfPath,
-  $escluster,
+  $esCluster,
   $esTCPPortRange,
   $esHTTPPortRange,
   $esClusterHosts,
