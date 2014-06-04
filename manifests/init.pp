@@ -17,7 +17,8 @@ class elasticsearch (
   $esDisableDynamic,
   $esAutoReload,
   $esInterval,
-  $esUpgrade
+  $esUpgrade,
+  $esClauseCount
 
   ) {
 

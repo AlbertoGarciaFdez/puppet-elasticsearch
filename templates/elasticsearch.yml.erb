@@ -36,3 +36,7 @@ script:
     auto_reload_enabled: <%= esAutoReload %>
 watcher:
     interval: <%= esInterval %>
+index:
+    query:
+        bool:
+            max_clause_count: <%= esClauseCount %>
