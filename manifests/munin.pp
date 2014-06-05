@@ -5,7 +5,7 @@ class elasticsearch::munin (
     ) { 
 
     file { 'elasticsearch_munin':
-        path    => '/usr/share/munin/plugins/elastisearch',
+        path    => '/usr/share/munin/plugins/elasticsearch',
         ensure  => 'present',
         owner   => 'root',
         group   => 'root',
@@ -16,7 +16,7 @@ class elasticsearch::munin (
     file { 'elasticsearch_index_size':
         path    => '/etc/munin/plugins/elasticsearch_index_size',
         ensure  => 'link',
-        target  => '/usr/share/munin/plugins/elastisearch',
+        target  => '/usr/share/munin/plugins/elasticsearch',
         require => File['elasticsearch_munin'],
         notify  => Service['munin-node'],
     }
@@ -24,7 +24,7 @@ class elasticsearch::munin (
     file { 'elasticsearch_docs':
         path    => '/etc/munin/plugins/elasticsearch_docs',
         ensure  => 'link',
-        target  => '/usr/share/munin/plugins/elastisearch',
+        target  => '/usr/share/munin/plugins/elasticsearch',
         require => File['elasticsearch_munin'],
         notify  => Service['munin-node'],
     }
