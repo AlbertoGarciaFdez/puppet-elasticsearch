@@ -8,7 +8,7 @@ class elasticsearch::java_sun (
   exec { 'get_tar':
     cwd     => "/tmp",
     command => "/usr/bin/wget ${source}/${file}",
-    creates => "/tmp/${package}",
+    creates => "/tmp/${file}",
   }
 
   exec { "untar jdk${version}":
