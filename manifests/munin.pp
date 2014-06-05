@@ -23,7 +23,7 @@ class elasticsearch::munin (
 
     file { 'elasticsearch_docs':
         path    => '/etc/munin/plugin/elasticsearch_docs',
-        ensure  => 'link'
+        ensure  => 'link',
         target  => '/usr/share/munin/plugins/elastisearch',
         require => File['elasticsearch_munin'],
         notify  => Service['munin-node'],
