@@ -40,6 +40,8 @@ class elasticsearch::munin (
         version => "${perlbrew}",
     }
 
+    perlbrew::install_cpanm { "${perlbrew}": }
+
     perlbrew::install_module { "JSON": 
         perl => "${perlbrew}",
     }
