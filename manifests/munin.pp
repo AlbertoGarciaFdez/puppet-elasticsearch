@@ -10,7 +10,7 @@ class elasticsearch::munin (
         owner   => 'root',
         group   => 'root',
         mode    => 755,
-        content => template("elasticsaerch/elasticsearch_munin.erb")
+        content => template("elasticsearch/elasticsearch_munin.erb")
     }
 
     file { 'elasticsearch_index_size':
