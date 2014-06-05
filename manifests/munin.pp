@@ -1,6 +1,7 @@
 class elasticsearch::munin (
 
-    $all_graphs
+    $all_graphs,
+    $perlbrew,
 
     ) { 
 
@@ -31,5 +32,15 @@ class elasticsearch::munin (
 
     service { 'munin-node':
         ensure  => running 
+    }
+
+    class { 'perlbrew': }
+
+    perlbrew::build { "${perlbrew}":
+        version => "${perlbrew}",
+    }
+
+    perlbrew::install_module { "JSON": 
+        perl => "${perlbrew}",
     }
 }
