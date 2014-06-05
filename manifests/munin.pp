@@ -33,16 +33,4 @@ class elasticsearch::munin (
     service { 'munin-node':
         ensure  => running 
     }
-
-    class { 'perlbrew': }
-
-    perlbrew::build { "${perlbrew}":
-        version => "${perlbrew}",
-    }
-
-    perlbrew::install_cpanm { "${perlbrew}": }
-
-    perlbrew::install_module { "JSON": 
-        perl => "${perlbrew}",
-    }
 }
