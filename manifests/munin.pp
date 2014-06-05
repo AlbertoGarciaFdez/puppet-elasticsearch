@@ -14,7 +14,7 @@ class elasticsearch::munin (
     }
 
     file { 'elasticsearch_index_size':
-        path    => '/etc/munin/plugin/elasticsearch_index_size',
+        path    => '/etc/munin/plugins/elasticsearch_index_size',
         ensure  => 'link',
         target  => '/usr/share/munin/plugins/elastisearch',
         require => File['elasticsearch_munin'],
@@ -22,7 +22,7 @@ class elasticsearch::munin (
     }
 
     file { 'elasticsearch_docs':
-        path    => '/etc/munin/plugin/elasticsearch_docs',
+        path    => '/etc/munin/plugins/elasticsearch_docs',
         ensure  => 'link',
         target  => '/usr/share/munin/plugins/elastisearch',
         require => File['elasticsearch_munin'],
