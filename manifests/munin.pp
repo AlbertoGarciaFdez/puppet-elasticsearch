@@ -17,11 +17,19 @@ class elasticsearch::munin (
         path    => '/etc/munin/plugin/elasticsearch_index_size',
         ensure  => 'link',
         target  => '/usr/share/munin/plugins/elastisearch',
+        require => File['elasticsearch_munin'],
+        notify  => Service['munin-node'],
     }
 
     file { 'elasticsearch_docs':
         path    => '/etc/munin/plugin/elasticsearch_docs',
         ensure  => 'link'
         target  => '/usr/share/munin/plugins/elastisearch',
+        require => File['elasticsearch_munin'],
+        notify  => Service['munin-node'],
+    }
+
+    service { 'munin-node':
+        ensure  => running 
     }
 }
