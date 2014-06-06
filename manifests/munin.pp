@@ -1,7 +1,6 @@
 class elasticsearch::munin (
 
     $all_graphs,
-    $perlbrew,
 
     ) { 
 
