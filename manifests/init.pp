@@ -18,7 +18,8 @@ class elasticsearch (
   $esAutoReload,
   $esInterval,
   $esUpgrade,
-  $esClauseCount
+  $esClauseCount,
+  $esJavaOpts
 
   ) {
 
@@ -48,6 +49,22 @@ class elasticsearch (
     content => template("elasticsearch/logging.yml.erb"),
     notify  => Service['elasticsearch'],
     require => Package['elasticsearch'],
+  }
+
+  if $esJavaOpts {
+    file_line { 'Set JavaOpts on init.d':
+      path  => '/etc/init.d/elasticsearch',
+      line  => "ES_JAVA_OPTS=${esJavaOpts}",
+      match => ".*ES_JAVA_OPTS=.*$",
+      notify  => Service['elasticsearch'],
+    }
+  else  {
+    file_line { 'Set JavaOpts on init.d':
+      path  => '/etc/init.d/elasticsearch',
+      line  => "#ES_JAVA_OPTS=",
+      match => "ES_JAVA_OPTS=.*$",
+      notify  => Service['elasticsearch'],
+    }
   }
 
   # Ensure the service is running
