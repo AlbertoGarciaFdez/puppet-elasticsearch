@@ -58,6 +58,7 @@ class elasticsearch (
       match => ".*ES_JAVA_OPTS=.*$",
       notify  => Service['elasticsearch'],
     }
+  }
   else  {
     file_line { 'Set JavaOpts on init.d':
       path  => '/etc/init.d/elasticsearch',
