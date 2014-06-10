@@ -51,11 +51,20 @@ class elasticsearch (
     require => Package['elasticsearch'],
   }
 
-  file_line { 'Set JavaOpts on init.d':
-    path  => '/etc/init.d/elasticsearch',
-    line  => "ES_JAVA_OPTS=${esJavaOpts}",
-    match => '.*ES_JAVA_OPTS=.*',
-    notify  => Service['elasticsearch'],
+  if $esJavaOpts { 
+    file_line { 'Set JavaOpts on init.d':
+      path  => '/etc/init.d/elasticsearch',
+      line  => "ES_JAVA_OPTS=${esJavaOpts}",
+      match => '.*ES_JAVA_OPTS=.*',
+      notify  => Service['elasticsearch'],
+    }
+  } else {
+    file_line { 'Set JavaOpts on init.d':
+      path  => '/etc/init.d/elasticsearch',
+      line  => "#ES_JAVA_OPTS=",
+      match => '.*ES_JAVA_OPTS=.*',
+      notify  => Service['elasticsearch'],
+    }
   }
 
   # Ensure the service is running
