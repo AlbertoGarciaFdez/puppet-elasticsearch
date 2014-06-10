@@ -1,8 +1,14 @@
 class elasticsearch::munin (
 
-    $all_graphs,
+    $all_nodes_graph,
 
     ) { 
+
+    #Sanitize boolean for perl
+    $all_graphs => $all_nodes_graph ? {
+      true  => 1,
+      default => 0,
+    }
 
     file { 'elasticsearch_munin':
         path    => '/usr/share/munin/plugins/elasticsearch',
