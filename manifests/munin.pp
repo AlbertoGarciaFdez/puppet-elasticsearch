@@ -5,7 +5,7 @@ class elasticsearch::munin (
     ) { 
 
     #Sanitize boolean for perl
-    $all_graphs => $all_nodes_graph ? {
+    $all_graphs = $all_nodes_graph ? {
       true  => 1,
       default => 0,
     }
