@@ -17,8 +17,8 @@ class elasticsearch (
   $esInterval,
   $esUpgrade,
   $esClauseCount,
-  $ES_HEAP_SIZE,
-  $ES_MAX_OPEN_FILES
+  $esHeapSize,
+  $esMaxOpenFiles
 
   ) {
 
