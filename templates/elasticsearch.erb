@@ -60,11 +60,11 @@ export JAVA_HOME
 ES_HOME=/usr/share/$NAME
 
 # Heap Size (defaults to 256m min, 1g max)
-<% if @ES_HEAP_SIZE { %>
-ES_HEAP_SIZE=<%= @ES_HEAP_SIZE %>
+<% if ES_HEAP_SIZE %>
+ES_HEAP_SIZE=<%= ES_HEAP_SIZE %>
 ulimit -l unlimited
-<% } else { %>
-#ES_HEAP_SIZE= <% } %>
+<% else %>
+#ES_HEAP_SIZE= <% end %>
 
 # Heap new generation
 #ES_HEAP_NEWSIZE=
