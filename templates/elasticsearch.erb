@@ -76,11 +76,11 @@ ulimit -l unlimited
 #ES_JAVA_OPTS=
 
 # Maximum number of open files
-<% if MAX_OPEN_FILES { %>
+<% if MAX_OPEN_FILES %>
 MAX_OPEN_FILES=<%= MAX_OPEN_FILES %>
 ulimit -n <%= MAX_OPEN_FILES %>
-<% } else { %>
-#MAX_OPEN_FILES= <% } %>
+<% else  %>
+#MAX_OPEN_FILES= <% end %>
 
 # Maximum amount of locked memory
 #MAX_LOCKED_MEMORY=
