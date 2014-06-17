@@ -1,0 +1,14 @@
+<%= esUser %>    hard    nofile          <%= esUlimitNofile %>
+<%= esUser %>    soft    nofile          <%= esUlimitNofile %>
+<%= esUser %>    -       memlock         <%= esUlimitMemlock %>
+<%= esUser %>    -       core            0
+
+  file { "/etc/security/limits.d/${esUser}.conf":
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    content => template("elasticsearch/elasticsearch.limits.conf.erb"),
+    notify  => Service['elasticsearch'],
+    require => Package['elasticsearch']
+  }
+

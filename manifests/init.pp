@@ -2,8 +2,6 @@ class elasticsearch (
   
   $esVersion,
   $esUser,
-  $esUlimitNofile,
-  $esUlimitMemlock,
   $esDataPath,
   $esLogPath,
   $esConfPath,
@@ -19,7 +17,8 @@ class elasticsearch (
   $esInterval,
   $esUpgrade,
   $esClauseCount,
-  $esJavaOpts
+  $ES_HEAP_SIZE,
+  $ES_MAX_OPEN_FILES
 
   ) {
 
@@ -28,43 +27,17 @@ class elasticsearch (
   package { 'elasticsearch':
     ensure  => $esVersion,
   }
-     
-  file { "/etc/security/limits.d/${esUser}.conf":
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    content => template("elasticsearch/elasticsearch.limits.conf.erb"),
-    notify  => Service['elasticsearch'],
-    require => Package['elasticsearch']
-  }
-     
-  # Apply config template for search
+
   file { "/etc/elasticsearch/elasticsearch.yml":
     content => template("elasticsearch/elasticsearch.yml.erb"),
     notify  => Service['elasticsearch'],
     require => Package['elasticsearch'],
   }
-      
+ 
   file { "/etc/elasticsearch/logging.yml":
     content => template("elasticsearch/logging.yml.erb"),
     notify  => Service['elasticsearch'],
     require => Package['elasticsearch'],
-  }
-
-  if $esJavaOpts { 
-    file_line { 'Set JavaOpts on init.d':
-      path  => '/etc/init.d/elasticsearch',
-      line  => "ES_JAVA_OPTS=${esJavaOpts}",
-      match => '.*ES_JAVA_OPTS=.*',
-      notify  => Service['elasticsearch'],
-    }
-  } else {
-    file_line { 'Set JavaOpts on init.d':
-      path  => '/etc/init.d/elasticsearch',
-      line  => "#ES_JAVA_OPTS=",
-      match => '.*ES_JAVA_OPTS=.*',
-      notify  => Service['elasticsearch'],
-    }
   }
 
   # Ensure the service is running
@@ -72,6 +45,12 @@ class elasticsearch (
     enable => true,
     ensure => running,
     hasrestart => true,
+  }
+
+  exec { 'Allow_mlock':
+    command   => 'ulimit -l unlimited',
+    provider  => 'shell',
+    notify    => Service['elasticsearch']
   }
 
   define install_plugin {
