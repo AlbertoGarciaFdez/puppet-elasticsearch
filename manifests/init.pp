@@ -47,10 +47,10 @@ class elasticsearch (
     hasrestart => true,
   }
 
-  exec { 'Allow_mlock':
-    command   => 'ulimit -l unlimited',
-    provider  => 'shell',
-    notify    => Service['elasticsearch']
+  file { "/etc/init.d/elasticsearch":
+    content => template('elasticsearch/elasticsearch.erb'),
+    notify  => Service['elasticsearch'],
+    require => Package['elasticsearch'],
   }
 
   define install_plugin {
