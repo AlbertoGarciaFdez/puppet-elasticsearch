@@ -51,6 +51,7 @@ class elasticsearch (
     content => template('elasticsearch/elasticsearch.erb'),
     notify  => Service['elasticsearch'],
     require => Package['elasticsearch'],
+    mode    => 744,
   }
 
   define install_plugin {
@@ -60,16 +61,16 @@ class elasticsearch (
       exec { "remove plugin ${plugindir}" :
         command   => "/usr/share/elasticsearch/bin/plugin -r $plugindir --verbose",
         onlyif    => "test -d /usr/share/elasticsearch/plugins/$plugindir",
-        notify   => Service['elasticsearch'],
-        before   => Exec["install plugin ${plugindir}"],
-        require  => Package['elasticsearch'],
+        notify    => Service['elasticsearch'],
+        before    => Exec["install plugin ${plugindir}"],
+        require   => Package['elasticsearch'],
      }
     }
     exec { "install plugin ${plugindir}": 
-      command   => "/usr/share/elasticsearch/bin/plugin -i $plugin --verbose",
-      creates   => "/usr/share/elasticsearch/plugins/$plugindir",
-      notify    => Service['elasticsearch'],
-      require   => Package['elasticsearch'],
+      command => "/usr/share/elasticsearch/bin/plugin -i $plugin --verbose",
+      creates => "/usr/share/elasticsearch/plugins/$plugindir",
+      notify  => Service['elasticsearch'],
+      require => Package['elasticsearch'],
     }
   }
 
