@@ -35,6 +35,17 @@ my %plugins = (
             'index_size' => { 'value' => 'indices.store.size_in_bytes', 'name' => 'Index size', 'type' => 'GAUGE', },
         },
     },
+
+    'elasticsearch_match_all_time' => {
+        'path_all' => '/_search',
+        'path' => '/_search',
+        'graph' => {
+            'graph_title' => 'ElasticSearch match_all_time',
+        },
+        'values' => {
+            'took' => { 'value' => 'took', 'name' => 'Took', 'type' => 'GAUGE', },
+        },
+    },
 );
 
 # determine which plugin
