@@ -74,7 +74,7 @@ ulimit -l unlimited<% else %>#ES_HEAP_SIZE= <% end %>
 
 # Maximum number of open files
 <% if esMaxOpenFiles %>MAX_OPEN_FILES=<%= esMaxOpenFiles %>
-ulimit -n<%= esMaxOpenFiles %><% else  %>#MAX_OPEN_FILES=<% end %>
+ulimit -n <%= esMaxOpenFiles %><% else  %>#MAX_OPEN_FILES=<% end %>
 
 # Maximum amount of locked memory
 #MAX_LOCKED_MEMORY=

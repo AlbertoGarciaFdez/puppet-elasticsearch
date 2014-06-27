@@ -2,6 +2,7 @@
 
 node :
     name : <%= hostname %>
+    master : <%= esEligible_Master %>
 network :
     host : <%= fqdn hostname %>
 
@@ -15,6 +16,7 @@ discovery :
 <% end -%>
             multicast : 
                 enabled : false
+        minimum_master_nodes : 2
 
 transport:
     tcp:

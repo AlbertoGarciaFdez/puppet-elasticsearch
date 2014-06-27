@@ -18,7 +18,8 @@ class elasticsearch (
   $esUpgrade,
   $esClauseCount,
   $esHeapSize,
-  $esMaxOpenFiles
+  $esMaxOpenFiles,
+  $esEligible_Master
 
   ) {
 
